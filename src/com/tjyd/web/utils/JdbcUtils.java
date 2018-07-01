@@ -1,4 +1,4 @@
-package com.tjyd.web;
+package com.tjyd.web.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
