@@ -23,6 +23,12 @@ public class BaseDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

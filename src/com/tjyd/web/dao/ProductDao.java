@@ -42,6 +42,13 @@ public class ProductDao extends BaseDao{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
         return p;
     }
 
@@ -66,6 +73,13 @@ public class ProductDao extends BaseDao{
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+        finally {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
         return pl;
     }
