@@ -1,86 +1,40 @@
 package com.tjyd.web.dao;
 
 import com.tjyd.web.model.Product;
-import com.tjyd.web.utils.JdbcUtils;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDao extends BaseDao{
+public class ProductDao {
+    private JdbcTemplate jdbcTemplate;
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     public void update(Product product){
         String sql="UPDATE product set name=?,price=?,remark=? where id=?";
-        super.update(sql,new Object[]{product.getName(),product.getPrice(),product.getRemark(),product.getId()});
+        jdbcTemplate.update(sql,new Object[]{product.getName(),product.getPrice(),product.getRemark(),product.getId()});
     }
     public void delete(Integer id){
         String sql="DELETE from product where id=?";
-        super.update(sql,new Object[]{id});
+        jdbcTemplate.update(sql,new Object[]{id});
     }
     public void save(Product product){
         String sql="insert into product(name,price,remark) values (?,?,?)";
-        super.update(sql,new Object[]{product.getName(),product.getPrice(),product.getRemark()});
+        jdbcTemplate.update(sql,new Object[]{product.getName(),product.getPrice(),product.getRemark()});
     }
 
     public Product getById(Integer id){
-        JdbcUtils jdbcUtils=new JdbcUtils();
-        Connection conn=jdbcUtils.getConnection();
-        String sql="select * from product where id =?";
-        Product p=new Product();
-        try {
-            PreparedStatement pre=conn.prepareStatement(sql);
-            pre.setInt(1,id);
-            ResultSet rs=pre.executeQuery();
-            if (rs.next()){
-
-                p.setId(rs.getInt(1));
-                p.setName(rs.getString(2));
-                p.setPrice(rs.getDouble(3));
-                p.setRemark(rs.getString(4));
-                p.setDate(rs.getDate(5));
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return p;
+        String sql="select * from product where id=?";
+        return jdbcTemplate.queryForObject(sql,new Object[]{id},new BeanPropertyRowMapper<Product>(Product.class));
     }
 
     public ArrayList<Product> queryByName(String name){
-        JdbcUtils jdbcUtils=new JdbcUtils();
-        Connection conn=jdbcUtils.getConnection();
-        String sql="select * from product where name  like ?";
-        Product p=null;
-        ArrayList<Product> pl= new ArrayList<Product>();
-        try {
-            PreparedStatement pre=conn.prepareStatement(sql);
-            pre.setString(1,"%"+name+"%");
-            ResultSet rs=pre.executeQuery();
-            while (rs.next()){
-                p=new Product();
-                p.setId(rs.getInt(1));
-                p.setName(rs.getString(2));
-                p.setPrice(rs.getDouble(3));
-                p.setRemark(rs.getString(4));
-                p.setDate(rs.getDate(5));
-                pl.add(p);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        finally {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return pl;
+        String sql="select * from product where name like ?";
+
+        return (ArrayList<Product>) jdbcTemplate.query(sql,new Object[]{"%"+name+"%"},new BeanPropertyRowMapper<Product>(Product.class));
     }
 }

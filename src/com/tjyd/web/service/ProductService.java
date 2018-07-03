@@ -6,9 +6,10 @@ import com.tjyd.web.model.Product;
 import java.util.ArrayList;
 
 public class ProductService {
-    private ProductDao productDao=new ProductDao();
+    private ProductDao productDao;
     public void save(Product product){
         productDao.save(product);
+//       Integer.parseInt("sef");
     }
 
     public ArrayList<Product> queryByName(String keyword){
@@ -17,5 +18,9 @@ public class ProductService {
 
     public void delete(Integer id){
         productDao.delete(id);
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
     }
 }
