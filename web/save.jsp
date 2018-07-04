@@ -12,7 +12,7 @@
     价格:<input type="text" name="price" /><br/>
     备注:<input type="text" name="remark" /><br/>
     <input type="submit" value="提交" />
-    <input type="hidden" name="type" value="save" />
+    <%--<input type="hidden" name="type" value="save" />--%>
 </form>
 </body>
 </html>

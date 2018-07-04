@@ -24,6 +24,14 @@ public class ProductService {
         productDao.delete(id);
     }
 
+    public Product getById(Integer id){
+        return productDao.getById(id);
+    }
+
+    public void update(Product product){
+        productDao.update(product);
+    }
+
 //    public void setProductDao(ProductDao productDao) {
 //        this.productDao = productDao;
 //    }

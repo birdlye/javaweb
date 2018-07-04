@@ -7,10 +7,10 @@
     <title>query</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/product" method="get">
+<form action="${pageContext.request.contextPath}/product/query.mvc" method="get">
     关键字:<input type="text" name="keyword" /><br/>
     <input type="submit" value="提交" />
-    <input type="hidden" name="type" value="query" />
+    <%--<input type="hidden" name="type" value="query" />--%>
 </form>
 <table border="1" width="500px">
     <tr>
@@ -33,7 +33,7 @@
             <td>${product.price}</td>
             <td>${product.remark}</td>
             <td>${product.date}</td>
-            <td><a>更新</a>|<a href="${pageContext.request.contextPath}/product?id=${product.id}&type=delete">删除</a></td>
+            <td><a href="${pageContext.request.contextPath}/product/getbyid.mvc?id=${product.id}">更新</a>|<a href="${pageContext.request.contextPath}/product/delete.mvc?id=${product.id}">删除</a></td>
         </tr>
     </c:forEach>
 
