@@ -3,16 +3,20 @@ package com.tjyd.web.dao;
 import com.tjyd.web.model.Product;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-
+@Component(value = "productDao")
 public class ProductDao {
+    @Resource(name = "jdbcTemplate")
     private JdbcTemplate jdbcTemplate;
 
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+//    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+//        this.jdbcTemplate = jdbcTemplate;
+//    }
 
     public void update(Product product){
         String sql="UPDATE product set name=?,price=?,remark=? where id=?";

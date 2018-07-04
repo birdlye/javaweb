@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/product" method="post">
+<form action="${pageContext.request.contextPath}/product/save.mvc" method="post">
     商品名:<input type="text" name="name" /><br/>
     价格:<input type="text" name="price" /><br/>
     备注:<input type="text" name="remark" /><br/>
